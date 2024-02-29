@@ -4,6 +4,9 @@ import { Model } from 'mongoose';
 import { Form } from './schema';
 import { CreateFormDto } from './dto/create-form.dto';
 import { IResponse } from 'src/interfaces';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { validate } from 'class-validator';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class FormsService {
@@ -12,17 +15,36 @@ export class FormsService {
   constructor(
     @InjectModel('Form')
     private readonly formModel: Model<Form>,
+    private readonly cloudinary: CloudinaryService,
   ) {}
-
   async addForm(createFormDto: CreateFormDto) {
     let response: IResponse;
-    const { email } = createFormDto;
+    const { email, images } = createFormDto;
 
-    this.logger.log('Looking for gallery with existing title');
+    const validationOptions = { groups: ['file'] };
+    const errors = await validate(
+      plainToClass(CreateFormDto, createFormDto),
+      validationOptions,
+    );
+
+    if (errors.length > 0) {
+      return {
+        statusCode: 400,
+        message: 'Validation failed',
+        data: null,
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'Validation failed',
+          details: errors,
+        },
+      };
+    }
+
+    this.logger.log('Looking for a form with an existing email');
     const existingForm = await this.formModel.findOne({ email });
 
     if (existingForm) {
-      return (response = {
+      return {
         statusCode: 409,
         message: 'Form with existing email already exists',
         data: null,
@@ -30,21 +52,39 @@ export class FormsService {
           code: 'FORM_ALREADY_EXIST',
           message: 'Form with existing email already exists',
         },
-      });
-    } else {
-      const newForm = await this.formModel.create({
-        ...createFormDto,
-      });
-
-      await newForm.save();
-
-      response = {
-        statusCode: 201,
-        message: 'Form saved successfully',
-        data: newForm,
-        error: null,
       };
     }
+
+    if (images) {
+      try {
+        this.logger.log(`Uploading images to cloud...`);
+        const uploadedImages = await this.cloudinary.upload(images);
+        createFormDto.images = uploadedImages.secure_url;
+      } catch (error) {
+        return {
+          statusCode: 500,
+          message: 'Error uploading images to Cloudinary',
+          data: null,
+          error: {
+            code: 'IMAGE_UPLOAD_ERROR',
+            message: 'Error uploading images to Cloudinary',
+            details: error.message,
+          },
+        };
+      }
+    }
+
+    // Create and save the form
+    const newForm = await this.formModel.create(createFormDto);
+    await newForm.save();
+
+    response = {
+      statusCode: 201,
+      message: 'Form saved successfully',
+      data: newForm,
+      error: null,
+    };
+
     return response;
   }
 

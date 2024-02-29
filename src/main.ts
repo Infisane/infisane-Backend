@@ -25,7 +25,7 @@ async function bootstrap() {
 
   const port = configService.get<string>('PORT') || 7700;
   await app.listen(port, () => {
-    logger.log(`internship server running on port: [${port}]`);
+    logger.log(`Infisane server running on port: [${port}]`);
   });
 }
 bootstrap();

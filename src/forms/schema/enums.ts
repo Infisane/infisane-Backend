@@ -3,3 +3,21 @@ export enum Communication {
   'Email' = 'Email',
   'Call' = 'Call',
 }
+
+export enum Color {
+  'Black' = 'Black',
+  'Red' = 'Red',
+  'Yellow' = 'Yellow',
+  'Green' = 'Green',
+  'Orange' = 'Orange',
+  'Purple' = 'Purple',
+  'Brown' = 'Brown',
+  'Your Choice' = 'Your Choice',
+  '' = '',
+}
+
+export enum logoType {
+  'Maximalist' = 'Maximalist',
+  'Minimalist' = 'Minimalist',
+  '' = '',
+}
