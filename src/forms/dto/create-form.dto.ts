@@ -70,6 +70,14 @@ export class CreateFormDto {
   @IsNotEmpty()
   logoType: string;
 
+  @IsString()
+  @IsNotEmpty()
+  differences: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
   @IsOptional()
   @IsOptional({ groups: ['file'] })
   images?: Express.Multer.File;

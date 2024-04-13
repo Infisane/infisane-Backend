@@ -12,7 +12,7 @@ export class Form {
   @Prop({ required: false })
   emailAddress: string;
 
-  @Prop({ enum: ['Instant Messaging (WhatsApp)', 'Email', 'Call'] })
+  @Prop({ type: String }) // Remove enum validation for methodOfCommunication
   methodOfCommunication: string;
 
   @Prop({ required: true })
@@ -33,28 +33,17 @@ export class Form {
   @Prop({ required: true })
   perception: string;
 
-  @Prop({
-    required: true,
-    enum: [
-      'Blue',
-      'Red',
-      'Green',
-      'Yellow',
-      'Orange',
-      'Purple',
-      'Black',
-      'Brown',
-      'Your Choice',
-      ' ',
-    ],
-  })
+  @Prop({ type: String }) // Remove enum validation for brandColor
   brandColor: string;
 
-  @Prop({ required: true, enum: ['Maximalist', 'Minimalist', ' '] })
+  @Prop({ type: String }) // Remove enum validation for logoType
   logoType: string;
 
   @Prop({ required: true })
   competitors: string;
+
+  @Prop({ required: true })
+  description: string;
 
   @Prop({ required: true })
   likedLogos: string[];
@@ -64,6 +53,9 @@ export class Form {
 
   @Prop({ default: ' ' })
   images: string;
+
+  @Prop({ type: String }) // Remove enum validation for differences
+  differences: string;
 }
 
 export const FormSchema = SchemaFactory.createForClass(Form);
