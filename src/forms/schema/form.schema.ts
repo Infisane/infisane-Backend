@@ -12,7 +12,7 @@ export class Form {
   @Prop({ required: false })
   emailAddress: string;
 
-  @Prop({ type: String }) // Remove enum validation for methodOfCommunication
+  @Prop({ type: String })
   methodOfCommunication: string;
 
   @Prop({ required: true })
@@ -33,10 +33,10 @@ export class Form {
   @Prop({ required: true })
   perception: string;
 
-  @Prop({ type: String }) // Remove enum validation for brandColor
+  @Prop({ type: String })
   brandColor: string;
 
-  @Prop({ type: String }) // Remove enum validation for logoType
+  @Prop({ type: String })
   logoType: string;
 
   @Prop({ required: true })
@@ -54,7 +54,7 @@ export class Form {
   @Prop({ default: ' ' })
   images: string;
 
-  @Prop({ type: String }) // Remove enum validation for differences
+  @Prop({ type: String })
   differences: string;
 }
 
