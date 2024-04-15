@@ -15,12 +15,12 @@ import { IResponse } from 'src/interfaces';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { FileValidationPipe } from 'src/file-validation/file-validation.pipe';
 
-@Controller('forms')
+@Controller('logo')
 export class FormsController {
   constructor(private readonly formsService: FormsService) {}
 
   @HttpCode(200)
-  @Post('add-Form')
+  @Post('request')
   @UseInterceptors(FileFieldsInterceptor([{ name: 'images', maxCount: 1 }]))
   async addForm(
     @UploadedFiles(new FileValidationPipe())

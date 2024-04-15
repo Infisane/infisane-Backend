@@ -9,7 +9,14 @@ import {
 export class FileValidationPipe
   implements PipeTransform<Express.Multer.File, Express.Multer.File>
 {
-  private readonly allowedFileExtensions = ['pdf', 'jpg', 'png', 'png'];
+  private readonly allowedFileExtensions = [
+    'pdf',
+    'jpg',
+    'png',
+    'png',
+    'jpeg',
+    'svg',
+  ];
 
   transform(
     value: Express.Multer.File,

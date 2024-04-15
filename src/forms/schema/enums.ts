@@ -21,3 +21,11 @@ export enum logoType {
   'Minimalist' = 'Minimalist',
   '' = '',
 }
+
+// export enum perceptionType {
+//   'Friendly' = 'Friendly',
+//   'Corporate' = 'Corporate',
+//   'Luxury' = 'Luxury',
+//   'Retail' = 'Retail',
+
+// }
