@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Color, Communication } from '../schema/enums';
+import { Communication } from '../schema/enums';
 // import { Transform } from 'class-transformer';
 
 export class CreateFormDto {
@@ -50,7 +50,8 @@ export class CreateFormDto {
   @IsNotEmpty()
   perception: string;
 
-  @IsEnum(Color)
+  // @IsEnum(Color)
+  @IsString()
   @IsNotEmpty()
   brandColor: string;
 
