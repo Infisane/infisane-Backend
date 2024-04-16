@@ -6,7 +6,7 @@ import {
   IsString,
 } from 'class-validator';
 import { Color, Communication } from '../schema/enums';
-import { Transform } from 'class-transformer';
+// import { Transform } from 'class-transformer';
 
 export class CreateFormDto {
   @IsEmail()
@@ -29,10 +29,10 @@ export class CreateFormDto {
   @IsNotEmpty()
   brandName: string;
 
-  @Transform(({ value }) => value as boolean)
+  // @Transform(({ value }) => value as boolean)
   @IsString()
   @IsNotEmpty()
-  sloganChoice: boolean;
+  sloganChoice: string;
 
   @IsOptional()
   @IsString()
