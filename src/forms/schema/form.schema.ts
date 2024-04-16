@@ -19,7 +19,7 @@ export class Form {
   brandName: string;
 
   @Prop({ required: true, default: false })
-  sloganChoice: boolean;
+  sloganChoice: string;
 
   @Prop({ default: ' ' })
   sloganTag: string;
