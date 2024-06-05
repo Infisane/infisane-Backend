@@ -1,27 +1,12 @@
-import {
-  ArgumentMetadata,
-  BadRequestException,
-  Injectable,
-  PipeTransform,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 
 @Injectable()
 export class FileValidationPipe
   implements PipeTransform<Express.Multer.File, Express.Multer.File>
 {
-  private readonly allowedFileExtensions = [
-    'pdf',
-    'jpg',
-    'png',
-    'png',
-    'jpeg',
-    'svg',
-  ];
+  private readonly allowedFileExtensions = ['pdf', 'jpg', 'png', 'jpeg', 'svg'];
 
-  transform(
-    value: Express.Multer.File,
-    metadata: ArgumentMetadata,
-  ): Express.Multer.File {
+  transform(value: Express.Multer.File): Express.Multer.File {
     for (let index = 0; index < Object.keys(value).length; index++) {
       if (
         !this.validateFileExtension(Object.values(value)[index][0].originalname)
@@ -30,11 +15,12 @@ export class FileValidationPipe
           message: `Invalid file extension detected, possible file extensions are: [${this.allowedFileExtensions}]`,
         });
       }
-      return value;
     }
+    return value;
   }
 
-  private validateFileExtension(fileName): boolean {
-    return this.allowedFileExtensions.includes(fileName.split('.')[1]);
+  private validateFileExtension(fileName: string): boolean {
+    const extension = fileName.split('.').pop();
+    return this.allowedFileExtensions.includes(extension.toLowerCase());
   }
 }

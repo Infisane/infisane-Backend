@@ -1,8 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { User } from 'src/users/schema';
 
 @Schema({ timestamps: true })
-export class Form {
+export class Product {
   @Prop({ required: true })
   email: string;
 
@@ -56,8 +57,11 @@ export class Form {
 
   @Prop({ type: String })
   differences: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  owner: User;
 }
 
-export const FormSchema = SchemaFactory.createForClass(Form);
+export const ProductSchema = SchemaFactory.createForClass(Product);
 
-export type FormDocument = HydratedDocument<Form>;
+export type ProductDocument = HydratedDocument<Product>;
