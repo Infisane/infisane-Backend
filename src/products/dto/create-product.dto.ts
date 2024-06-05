@@ -8,7 +8,7 @@ import {
 import { Communication } from '../schema/enums';
 // import { Transform } from 'class-transformer';
 
-export class CreateFormDto {
+export class CreateProductDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;

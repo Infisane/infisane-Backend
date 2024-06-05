@@ -5,5 +5,6 @@ export interface IResponse {
   error?: {
     code?: string;
     message?: string;
+    details?: any;
   } | null;
 }
